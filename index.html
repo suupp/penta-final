@@ -1,0 +1,64 @@
+<html>
+
+<meta charset="UTF-8">
+
+<head>
+  <style>
+body {background-color: powderblue;}
+.wrapper {
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  width: 40%;
+  height: 80%;
+}
+.underCanvas {
+  position: absolute;
+  top: 600px;
+}
+#myCanvas {
+  position: absolute;
+  top:0;
+  left:0;
+}
+</style>
+  <script type="text/javascript" src="grid.js"></script>
+  <script type="text/javascript" src ="new.js"></script>
+  <script type="text/javascript" src ="solver.js"></script>
+  <script type="text/javascript" src="randomcolor.js"></script>
+</head>
+<body>
+  <div class="wrapper" id="figPicker">
+  </div>
+<canvas id="myCanvas" width="600" height="600" onmousemove="prePlaceFigure(event, selectedFigure)" onmouseout="fillCanvas(cellsArray)" onclick="placeFigure(event, selectedFigure, selectedind, cellsArray); updateSolution(figureSet, cellsArray)"></canvas>
+<script type="text/javascript">
+   var x = prompt('Enter board width (2 - 15)','');
+   var y = prompt('Enter board height (2 - 10)','');
+   x = Number(x);
+   y = Number(y);
+   // set canvas height based on canvas width in order to have square cells
+   var canvas = document.getElementById("myCanvas");
+   canvas.height=canvas.width/x*y;
+// create a pointer to canvas image (needed for isRectEmpty function)
+   var ctx = canvas.getContext("2d");
+// create brick image for static blocks
+    cellWidth = canvas.width/x;
+    cellHeight = canvas.height/y;
+
+
+</script>
+<p class="underCanvas">
+<script type="text/javascript">
+  generateRandomGrid();
+</script>
+<input type="button" id="SolveButton" value="SOLVE!" onclick="startSolve()">
+<input type="button" value="place one figure" onclick="placeOne(figureSet, solution, cellsArray)">
+<input type="button" value="RESET" onclick="clearGrid(cellsArray, true); figureSet = Array.from(oldFSet); monitornApplySetChanges(oldFSet); solved = 0; updateSolution(figureSet, cellsArray)">
+<input type="button" value="RANDOM FIELD" onclick="generateRandomGrid(); solved = 0">
+<input type="button" value="PLAIN FIELD" onclick="resetCanvas()">
+
+</p>
+</body>
+</html>
