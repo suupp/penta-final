@@ -1,3 +1,16 @@
+var allFigures = false;
+ function figureSetAll() {
+if (!allFigures) {
+figureSet = Array.from(pentas);
+allFigures = !allFigures;
+monitornApplySetChanges(figureSet, [0, 8, 16, 24, 32, 40, 44, 48, 52, 56, 60, 62]);
+} else {
+  figureSet = Array.from(oldFSet);
+  allFigures = !allFigures;
+  monitornApplySetChanges(figureSet);
+}
+
+ }
 //convinient version of fillRect, this fills a rect with a particular color
 function fillRectUpd(nx,ny,width,height,color) {
 ctx.fillStyle = color;
@@ -42,10 +55,13 @@ function placeFigure(event, figure, ind, array) {
     for (var i = 0; i < 5; i++) {
         array[xx+figure[i][0]][yy+figure[i][1]] = color;
     }
-    for (var some = ind; some < figureSet.length; some++) {
-      figureSet[some] = figureSet[some+1];
-    }
-    figureSet.length = figureSet.length - 1;
+      if (figureSet.length != 63) {
+        for (var some = ind; some < figureSet.length; some++) {
+          figureSet[some] = figureSet[some+1];
+        }
+      figureSet.length = figureSet.length - 1;
+      console.log("ha");
+      }
     monitornApplySetChanges(figureSet);
   }
   fillCanvas(array);
@@ -53,28 +69,45 @@ function placeFigure(event, figure, ind, array) {
 function removeFigureFromSet() {
 
 }
-function monitornApplySetChanges(set) {
+
+
+function monitornApplySetChanges(set, indices) {
+  var size = 35;
+  var len;
+  if ((indices == null) || (indices == undefined)) {
+    len = set.length;
+  } else {
+    len = indices.length;
+  }
+  console.log(len);
   var node = document.getElementById('figPicker');
   while (node.firstChild) {
     node.removeChild(node.firstChild);
   }
-  for (var ind = 0; ind < set.length; ind++) {
+  for (var ind = 0; ind < len; ind++) {
+      var indsec = ind;
+      if (indices != undefined) indsec = indices[ind];
       var offset = 0;
     var fig = document.createElement("canvas");
-    fig.width = 150;
-    fig.height = 150;
-    fig.figind = ind;
+    fig.width = size*5;
+    fig.height = size*5;
+    if ((indices == null) || (indices == undefined)) {
+      fig.figind = ind;
+    } else {
+      console.log(indsec);
+      fig.figind = indsec;
+    }
     fig.onclick = function() {
       selectFigure(set, this.figind);
   };
     figctx = fig.getContext("2d");
     for (var j = 0; j < 5; j++) {
-      if (set[ind][j][1]+offset < 0) {
+      if (set[indsec][j][1]+offset < 0) {
         offset = offset + 1;
       }
     }
       for (var j = 0; j < 5; j++) {
-        figctx.fillRect(set[ind][j][0]*30, (set[ind][j][1]+offset)*30, 29, 29);
+        figctx.fillRect(set[indsec][j][0]*size, (set[indsec][j][1]+offset)*size, size-1, size-1);
     }
     node.appendChild(fig);
   }
@@ -83,6 +116,38 @@ function monitornApplySetChanges(set) {
 
 var selectedFigure;
 var selectedind;
+
+function selectNextPrevFigure(e, set, figureind) {
+var evk = e.keyCode;
+if (evk == 82) {
+  selectNextFigure(figureSet, selectedind);
+}
+if (evk == 81) {
+  selectPrevFigure(figureSet, selectedind);
+}
+prePlaceFigure(null, selectedFigure)
+}
+
+lastMouseCoords = []
+
+function selectNextFigure(set, figureind) {
+  if (figureind + 1 < set.length) {
+    console.log(set.length);
+    selectedFigure = set[figureind + 1]
+    selectedind += 1;
+    console.log(selectedind);
+  }
+}
+
+function selectPrevFigure(set, figureind) {
+  if (figureind - 1 >= 0 ) {
+    console.log(set.length);
+    selectedFigure = set[figureind - 1]
+    selectedind -= 1;
+    console.log(selectedind);
+  }
+}
+
 function selectFigure(set, figureind) {
 selectedFigure = set[figureind];
 selectedind = figureind;
@@ -92,10 +157,14 @@ function prePlaceFigure(event, figure) {
   var fl = 0;
   if (figure != null) {
   fillCanvas(cellsArray);
-  var xx = Math.floor(event.clientX/cellWidth);
-  var yy = Math.floor(event.clientY/cellHeight);
+  if (event != null) {
+    var xx = Math.floor(event.clientX/cellWidth);
+    var yy = Math.floor(event.clientY/cellHeight);
+    lastMouseCoords[0] = xx;
+    lastMouseCoords[1] = yy;
+  }
   for (var i = 0; i < 5; i++) {
-      fillRectUpd((figure[i][0]+xx)*cellWidth, (figure[i][1]+yy)*cellHeight, cellWidth-1, cellHeight-1, "lightblue");
+      fillRectUpd((figure[i][0]+lastMouseCoords[0])*cellWidth, (figure[i][1]+lastMouseCoords[1])*cellHeight, cellWidth-1, cellHeight-1, "lightblue");
 
   }
 }

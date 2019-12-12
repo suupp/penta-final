@@ -63,5 +63,16 @@ for (var xx = 0; xx < x; xx=xx+1) {
 }
 
 function generateRectGrid() {
-
+for (var xx = 0; xx < x; xx=xx+1) {
+  for (var yy = 0; yy < y; yy=yy+1) {
+    cellsArray[xx][yy] = 1;
+      }
+   }
+fillCanvas(cellsArray);
+    figureSet = determineFigureSet(pentas, cellsArray);
+    while (figureSet.length != fillableCellCount(cellsArray) / 5) {
+      figureSet = determineFigureSet(pentas, cellsArray);
+    }
+oldFSet = Array.from(figureSet);
+monitornApplySetChanges(figureSet);
 }

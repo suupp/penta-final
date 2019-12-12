@@ -5,18 +5,32 @@
 <head>
   <style>
 body {background-color: powderblue;}
+
+.button {
+background-color: powderblue;
+color: black;
+border: 2px solid black;
+}
+
+.button:hover {
+color: white;
+background-color: black;
+}
+#divwrap {
+  width: 50%;
+}
+
 .wrapper {
   position: fixed;
   top: 10%;
   right: 10%;
   grid-template-columns: 1fr 1fr 1fr;
   display: grid;
-  width: 40%;
-  height: 80%;
+
 }
 .underCanvas {
   position: absolute;
-  top: 600px;
+  top: 80%;
 }
 #myCanvas {
   position: absolute;
@@ -29,17 +43,24 @@ body {background-color: powderblue;}
   <script type="text/javascript" src ="solver.js"></script>
   <script type="text/javascript" src="randomcolor.js"></script>
 </head>
-<body>
+<body onkeydown="selectNextPrevFigure(event, figureSet, selectedind)">
   <div class="wrapper" id="figPicker">
   </div>
+<div id="divwrap">
 <canvas id="myCanvas" width="600" height="600" onmousemove="prePlaceFigure(event, selectedFigure)" onmouseout="fillCanvas(cellsArray)" onclick="placeFigure(event, selectedFigure, selectedind, cellsArray); updateSolution(figureSet, cellsArray)"></canvas>
+</div>
 <script type="text/javascript">
    var x = prompt('Enter board width (2 - 15)','');
    var y = prompt('Enter board height (2 - 10)','');
    x = Number(x);
    y = Number(y);
+   var wd = document.getElementById('divwrap').clientWidth;
+   wd = Math.floor(wd / x)*x;
+   console.log(wd);
    // set canvas height based on canvas width in order to have square cells
    var canvas = document.getElementById("myCanvas");
+
+   canvas.width = wd;
    canvas.height=canvas.width/x*y;
 // create a pointer to canvas image (needed for isRectEmpty function)
    var ctx = canvas.getContext("2d");
@@ -53,11 +74,13 @@ body {background-color: powderblue;}
 <script type="text/javascript">
   generateRandomGrid();
 </script>
-<input type="button" id="SolveButton" value="SOLVE!" onclick="startSolve()">
-<input type="button" value="place one figure" onclick="placeOne(figureSet, solution, cellsArray)">
-<input type="button" value="RESET" onclick="clearGrid(cellsArray, true); figureSet = Array.from(oldFSet); monitornApplySetChanges(oldFSet); solved = 0; updateSolution(figureSet, cellsArray)">
-<input type="button" value="RANDOM FIELD" onclick="generateRandomGrid(); solved = 0">
-<input type="button" value="PLAIN FIELD" onclick="resetCanvas()">
+<input class = "button" type="button" id="SolveButton" value="Решить" onclick="startSolve()">
+<!-- <input class = "button" type="button" value="place one figure" onclick="placeOne(figureSet, solution, cellsArray)"> -->
+<input class = "button" type="button" value="Очистить" onclick="clearGrid(cellsArray, true); figureSet = Array.from(oldFSet); monitornApplySetChanges(oldFSet); solved = 0; updateSolution(figureSet, cellsArray); allFigures = false">
+<input class = "button" type="button" value="Поле случайной формы" onclick="generateRandomGrid(); solved = 0; allFigures = false">
+<input class = "button" type="button" value="Прямоугольное поле" onclick="generateRectGrid(); solved = 0; allFigures = false">
+<input class = "button" type="button" value="Набор из всех фигур" onclick="figureSetAll()">
+<!--<input class = "button" type="button" value="next fig" onclick="selectNextFigure(figureSet, selectedind)">-->
 
 </p>
 </body>
