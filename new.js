@@ -17,6 +17,10 @@ ctx.fillStyle = color;
 ctx.fillRect(nx,ny,width,height);
 }
 
+function checkRectField() {
+if (x*y % 5 != 0) document.getElementById('rectField').style.display = "none";
+}
+
 //fill canvas cells according to an existing array values
 function fillCanvas(array) {
   for (var xx = 0; xx < array.length; xx=xx+1) {
@@ -61,8 +65,9 @@ function placeFigure(event, figure, ind, array) {
         }
       figureSet.length = figureSet.length - 1;
       console.log("ha");
+	monitornApplySetChanges(figureSet);
       }
-    monitornApplySetChanges(figureSet);
+
   }
   fillCanvas(array);
 }
@@ -72,7 +77,7 @@ function removeFigureFromSet() {
 
 
 function monitornApplySetChanges(set, indices) {
-  var size = 35;
+  var size = 25;
   var len;
   if ((indices == null) || (indices == undefined)) {
     len = set.length;
@@ -98,6 +103,7 @@ function monitornApplySetChanges(set, indices) {
       fig.figind = indsec;
     }
     fig.onclick = function() {
+    //  this.style.border = "2px solid red";
       selectFigure(set, this.figind);
   };
     figctx = fig.getContext("2d");

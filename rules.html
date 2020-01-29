@@ -1,19 +1,89 @@
 <html>
 <meta charset="UTF-8">
   <head>
-    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title></title>
-    <meta content="">
+    <style>
+    body {
+      background-color: #4b86ad;
+    }
+    img {
+      width: 100%;
+    }
+    .button {
+      position: absolute;
+      top: 70%;
+      right: 30%;
+    background-color: powderblue;
+    color: black;
+    border: 2px solid black;
+    }
+
+    .button:hover {
+    color: white;
+    background-color: black;
+    }
+    .mainbox {
+      margin-top: 10%;
+      background-color: #699ec2;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+      font-size: 25px;
+    }
+    .insidebox {
+      position: absolute;
+      width: 80%;
+    }
+    .exit {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20;
+      height: 20;
+      background-color: #4b86ad;
+    }
+    </style>
   </head>
-  <body style="margin:0">
-�������
+  <body style="margin:0" onmousemove="check(event)">
+    <div class="mainbox">
+      <div>
+          Пентамино - плоские фигуры, каждая из которых состоит из пяти одинаковых квадратов. Этим же словом иногда называют головоломку, в которой такие фигуры требуется укладывать в прямоугольник или другие формы.
+      </div>
+        <div class="insidebox">
+          <img src="4.png" id="4" alt="">
+        </div>
+        <div class="insidebox">
+          <img src="3.png" id="3" alt="">
+        </div>
+        <div class="insidebox">
+          <img src="2.png" id="2" alt="">
+        </div>
+        <div class="insidebox">
+        <img src="1.png" id="1" alt="">
+      </div>
+    </div>
+    <input type="button" class="button" value="Далее" onclick="next()">
+    <div class="exit">
+    </div>
 <script>
-  //toPentaButton.onclick = function () {
-    //window.scroll(pageXOffset, 0);
-    //window.scroll({top:window.innerHeight, behavior:'smooth'})
-  //}
+function check(ev) {
+var x = ev.clientX;
+var y = ev.clientY;
+console.log(x, y);
+if ((x < 20) && (y < 20)) {
+window.location.href = "main.html";
+}
+}
+var cur = 1;
+function next() {
+var elem = document.getElementById("" + cur);
+console.log(elem);
+  var timer = setInterval(() => {
+    elem.style.opacity = elem.style.opacity + 1 - 0.01;
+    console.log(elem.style.opacity);
+  }, 13);
+  setTimeout(() => { clearInterval(timer); }, 2200);
+cur ++;
+}
 </script>
   </body>
 </html>
-

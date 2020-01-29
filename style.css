@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Alata'; /*a name to be used later*/
+    src: url('Alata-Regular.ttf');
+}
+@font-face {
+    font-family: 'FiraSans'; /*a name to be used later*/
+    src: url('FiraSans-Medium.ttf');
+}
+
+body{
+  user-select: none;
+}
+.headerblock {
+  background-color: #948fb2;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.insidediv {
+  position: absolute;
+  text-align: center;
+}
+.insidetext{
+  text-align: center;
+  color: black;
+  font-family: 'FiraSans';
+  font-size: 80;
+}
+
+.subtext {
+text-align: center;
+font-size: 25px;
+}
+
+.sub1 {
+  top:25%;
+}
+
+.sub2 {
+  top:35%;
+}
+
+.block {
+  height: 100%;
+  width: 100%;
+  background-color: #0d0d0d;
+  color:white;
+}
+.insideheadertext {
+  font-family: 'FiraSans';
+  color:white;
+  animation-delay: 0.5s;
+  animation-duration: 3s;
+  box-sizing:border-box;
+  text-align: center;
+  padding-top: 10%;
+  font-size: 140;
+  display: inline-block;
+  height: 100%;
+  width: 70%;
+}
+
+#toPentaButton {
+  cursor: pointer;
+  font-size: 30;
+  color: white;
+  position: absolute;
+  top: 85%;
+  left:50%;
+}

@@ -9,6 +9,7 @@ body {background-color: powderblue;}
 .button {
 background-color: powderblue;
 color: black;
+padding: 16px 32px;
 border: 2px solid black;
 }
 
@@ -22,7 +23,8 @@ background-color: black;
 
 .wrapper {
   position: fixed;
-  top: 10%;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
   right: 10%;
   grid-template-columns: 1fr 1fr 1fr;
   display: grid;
@@ -43,15 +45,15 @@ background-color: black;
   <script type="text/javascript" src ="solver.js"></script>
   <script type="text/javascript" src="randomcolor.js"></script>
 </head>
-<body onkeydown="selectNextPrevFigure(event, figureSet, selectedind)">
+<body onkeydown="selectNextPrevFigure(event, figureSet, selectedind)" onload="checkRectField()">
   <div class="wrapper" id="figPicker">
   </div>
 <div id="divwrap">
 <canvas id="myCanvas" width="600" height="600" onmousemove="prePlaceFigure(event, selectedFigure)" onmouseout="fillCanvas(cellsArray)" onclick="placeFigure(event, selectedFigure, selectedind, cellsArray); updateSolution(figureSet, cellsArray)"></canvas>
 </div>
 <script type="text/javascript">
-   var x = prompt('Enter board width (2 - 15)','');
-   var y = prompt('Enter board height (2 - 10)','');
+   var x = prompt('Введите ширину поля (2 - 15)','');
+   var y = prompt('Введите высоту поля (2 - 10)','');
    x = Number(x);
    y = Number(y);
    var wd = document.getElementById('divwrap').clientWidth;
@@ -78,7 +80,7 @@ background-color: black;
 <!-- <input class = "button" type="button" value="place one figure" onclick="placeOne(figureSet, solution, cellsArray)"> -->
 <input class = "button" type="button" value="Очистить" onclick="clearGrid(cellsArray, true); figureSet = Array.from(oldFSet); monitornApplySetChanges(oldFSet); solved = 0; updateSolution(figureSet, cellsArray); allFigures = false">
 <input class = "button" type="button" value="Поле случайной формы" onclick="generateRandomGrid(); solved = 0; allFigures = false">
-<input class = "button" type="button" value="Прямоугольное поле" onclick="generateRectGrid(); solved = 0; allFigures = false">
+<input id = "rectField" class = "button" type="button" value="Прямоугольное поле" onclick="generateRectGrid(); solved = 0; allFigures = false">
 <input class = "button" type="button" value="Набор из всех фигур" onclick="figureSetAll()">
 <!--<input class = "button" type="button" value="next fig" onclick="selectNextFigure(figureSet, selectedind)">-->
 
