@@ -8,7 +8,7 @@
 There is a field of blocks on the left of the screen. The purpose is to fill the whites with figures that are given on the right side of the screen.
 
 ### *Placing a figure on the field*
-Firstly simply click on a figure, it will be selected(sadly, there is no feedback when selecting, I thought it wasn't necessary for such small project). Then you should hover on a field and see the projection of that figure. When you picked the place you want, simply click on a field.
+First simply click on a figure, it will be selected(sadly, there is no feedback when selecting, I thought it wasn't necessary for such small project). Then you should hover on a field and see the projection of that figure. When you picked the place you want, simply click on a field.
 
 ### *Setting different modes*
 There are some buttons on the bottom, their names are pretty self-explanatory, but anyway.
