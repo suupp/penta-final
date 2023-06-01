@@ -16,10 +16,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
-
-      
-    - name: Build website
-      run: npm run build
       
     - name: Deploy to web server
       uses: easingthemes/ssh-deploy@v2.1.5
