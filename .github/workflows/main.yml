@@ -23,3 +23,4 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
         REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
+        TARGET: ${{ secrets.SSH_TARGET }}
