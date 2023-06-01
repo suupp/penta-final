@@ -27,9 +27,5 @@ jobs:
       uses: easingthemes/ssh-deploy@v2.1.5
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
         remote-user: ${{ secrets.REMOTE_USER }}
         remote-host: ${{ secrets.REMOTE_HOST }}
-        remote-port: ${{ secrets.REMOTE_PORT }}
-        local-path: ./public
-        remote-path: /var/www/html
