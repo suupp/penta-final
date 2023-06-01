@@ -20,6 +20,6 @@ jobs:
     - name: Deploy to web server
       uses: easingthemes/ssh-deploy@v2.1.5
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        remote-user: ${{ secrets.REMOTE_USER }}
-        remote-host: ${{ secrets.REMOTE_HOST }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
