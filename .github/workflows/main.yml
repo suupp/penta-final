@@ -11,8 +11,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      
-      
+    
     - name: Deploy to web server
       uses: easingthemes/ssh-deploy@main
       with:
