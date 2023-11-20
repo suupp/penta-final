@@ -2,8 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop]
 
 jobs:
   build_and_deploy:
@@ -12,24 +11,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - name: Deploy web server
+      uses: appleboy/ssh-action@master
       with:
-        node-version: 14
-      
-    - name: Run tests
-      run: npm test
-    
-    - name: Deploy with rsync
-      run: rsync -avz ./dist/ ${{ secrets.SSH_REMOTE_USER }}@${{ secrets.SSH_REMOTE_HOST }}:/home/sergsuup/
-    
-    
-    - name: Deploy to web server
-      uses: easingthemes/ssh-deploy@main
-      with:
-        SCRIPT_BEFORE: ls
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_USER: ${{ secrets.SSH_REMOTE_USER }}
-        REMOTE_HOST: ${{ secrets.SSH_REMOTE_HOST }}
-        SOURCE: "dist/"
-        TARGET: ${{ secrets.SSH_TARGET }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /var/www/html
+            sudo systemctl stop nginx
+            git pull https://github.com/suupp/penta-final develop
+            sudo systemctl start nginx
