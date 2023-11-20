@@ -20,5 +20,5 @@ jobs:
           script: |
             cd /var/www/html
             sudo systemctl stop nginx
-            git pull https://github.com/suupp/penta-final develop
+            git pull origin develop
             sudo systemctl start nginx
